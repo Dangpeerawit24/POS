@@ -34,7 +34,7 @@ class HomeController extends Controller
      */
     public function adminHome(): View
     {
-        return view('admin.home');
+        return view('admin.dashboard');
     }
   
     /**
@@ -44,6 +44,6 @@ class HomeController extends Controller
      */
     public function memberHome(): View
     {
-        return view('member.home');
+        return view('member.dashboard');
     }
 }
