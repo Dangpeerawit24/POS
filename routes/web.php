@@ -50,7 +50,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/stock', [StockController::class, 'index'])->name('admin.stock');
     Route::post('/admin/stock/{id}/add', [StockController::class, 'addStock'])->name('stock.add');
     Route::post('/admin/stock/{id}/reduce', [StockController::class, 'reduceStock'])->name('stock.reduce');
-    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
     // POS
     Route::get('/pos', [POSController::class, 'index'])->name('pos.index');
