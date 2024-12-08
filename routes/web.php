@@ -33,7 +33,7 @@ All Admin Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
   
-    Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.dashboard');
+    Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
     Route::view('/admin/index', 'admin.index');
     Route::resource('/admin/products', ProductController::class);
     Route::delete('/admin/products/destroy/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
