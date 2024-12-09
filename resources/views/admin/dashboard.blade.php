@@ -7,7 +7,11 @@
         <h1 class="text-3xl font-bold mb-6">Dashboard</h1>
 
         <!-- สถิติรวม -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="p-4 bg-white shadow rounded-lg">
+                <h2 class="text-lg font-semibold">ยอดขายวันนี้</h2>
+                <p class="text-2xl font-bold text-green-500">฿{{ number_format($salesToday, 2) }}</p>
+            </div>
             <div class="p-4 bg-white shadow rounded-lg">
                 <h2 class="text-lg font-semibold">ยอดขายรวม</h2>
                 <p class="text-2xl font-bold text-green-500">฿{{ number_format($totalSales, 2) }}</p>

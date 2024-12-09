@@ -11,12 +11,27 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $totalSales = Order::sum('total_amount'); // ยอดขายรวม
-        $totalOrders = Order::count(); // จำนวนคำสั่งซื้อ
-        $lowStockProducts = Product::where('stock_quantity', '<', 10)->get(); // สินค้าใกล้หมดสต็อก
-        $recentStockMovements = StockMovement::with('user', 'product')->latest()->take(5)->get(); // การอัปเดตสต็อกล่าสุด
+        // คำนวณยอดขายรวมเฉพาะคำสั่งซื้อที่สถานะเป็น 'completed'
+        $totalSales = Order::where('status', 'completed')->sum('total_amount');
+
+        // นับจำนวนคำสั่งซื้อที่สถานะเป็น 'completed'
+        $totalOrders = Order::where('status', 'completed')->count();
+
+        // คำนวณยอดขายเฉพาะวันนี้
+        $salesToday = Order::where('status', 'completed')
+            ->whereDate('created_at', today())
+            ->sum('total_amount');
+
+        // สินค้าที่ใกล้หมดสต็อก
+        $lowStockProducts = Product::where('stock_quantity', '<', 10)->get();
+
+        // การอัปเดตสต็อกล่าสุด
+        $recentStockMovements = StockMovement::with('user', 'product')->latest()->take(5)->get();
+
+        // คำสั่งซื้อที่ถูกยกเลิก
         $cancelledOrders = Order::where('status', 'cancelled')->get();
 
-        return view('admin.dashboard', compact('totalSales', 'totalOrders', 'lowStockProducts', 'recentStockMovements', 'cancelledOrders'));
+        // ส่งข้อมูลไปยัง View
+        return view('admin.dashboard', compact('totalSales', 'totalOrders', 'salesToday', 'lowStockProducts', 'recentStockMovements', 'cancelledOrders'));
     }
 }
