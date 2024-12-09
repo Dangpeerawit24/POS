@@ -48,6 +48,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/sales-history', [OrderController::class, 'salesHistory'])->name('sales.history');
     Route::get('/admin/sales-history/{id}', [OrderController::class, 'salesDetail'])->name('sales.detail');
     Route::get('/admin/sales-history2/{orderNumber}', [OrderController::class, 'salesDetail2'])->name('sales.detail2');
+    Route::patch('/orders/{id}/cancel', [OrderController::class, 'cancelOrder'])->name('orders.cancel');
     Route::get('/admin/stock', [StockController::class, 'index'])->name('admin.stock');
     Route::post('/admin/stock/{id}/add', [StockController::class, 'addStock'])->name('stock.add');
     Route::post('/admin/stock/{id}/reduce', [StockController::class, 'reduceStock'])->name('stock.reduce');

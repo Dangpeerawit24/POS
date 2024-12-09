@@ -31,8 +31,9 @@ class CashDrawer extends Model
             $this->current_balance += $amount;
         } elseif ($type === 'subtract') {
             $this->current_balance -= $amount;
+        } elseif ($type === 'refund') {
+            $this->current_balance -= $amount;
         }
-
         // บันทึกยอดใหม่
         $this->save();
 

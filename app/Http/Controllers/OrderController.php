@@ -23,7 +23,7 @@ class OrderController extends Controller
             ]);
 
             $cashDrawer = CashDrawer::firstOrCreate(['id' => 1], ['current_balance' => 0.00]);
-            
+
             // แปลง cart จาก JSON String เป็น Array
             $cart = is_string($request->input('cart')) ? json_decode($request->input('cart'), true) : $request->input('cart');
 
@@ -105,5 +105,38 @@ class OrderController extends Controller
         $order = Order::with('items')->where('order_number', $orderNumber)->firstOrFail();
 
         return view('admin.salesdetail', compact('order'));
+    }
+
+    public function cancelOrder($id)
+    {
+        $order = \App\Models\Order::with('items')->findOrFail($id);
+
+        // ตรวจสอบสถานะปัจจุบันก่อนยกเลิก
+        if ($order->status === 'cancelled') {
+            return redirect()->back()->with('error', 'บิลนี้ถูกยกเลิกไปแล้ว');
+        }
+
+        // ตรวจสอบว่าชำระด้วยเงินสด
+        if ($order->payment_method === 'cash') {
+            // อัปเดตกล่องเงินสด (คืนเงินกลับเข้าระบบ)
+            $cashDrawer = \App\Models\CashDrawer::firstOrCreate(['id' => 1]); // ตรวจสอบหรือสร้างกล่องเงินสด
+            $cashDrawer->adjustBalance($order->total_amount, 'refund', "คืนเงินสำหรับคำสั่งซื้อ #{$order->order_number}");
+        }
+
+        // อัปเดตสถานะคำสั่งซื้อเป็น 'cancelled'
+        $order->update([
+            'status' => 'cancelled',
+            'cancelled_by' => auth()->id(),
+        ]);
+
+        // คืนสินค้าเข้าสต็อก
+        foreach ($order->items as $item) {
+            $product = \App\Models\Product::find($item->product_id);
+            if ($product) {
+                $product->increment('stock_quantity', $item->quantity); // เพิ่มสินค้ากลับเข้าสต็อก
+            }
+        }
+
+        return redirect()->back()->with('success', 'บิลถูกยกเลิกและเงินถูกคืนเรียบร้อยแล้ว');
     }
 }

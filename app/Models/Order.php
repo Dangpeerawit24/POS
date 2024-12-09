@@ -19,6 +19,8 @@ class Order extends Model
         'proof_image',
         'received_amount',
         'change',
+        'status',
+        'cancelled_by',
         'user_id',
     ];
 
@@ -35,7 +37,10 @@ class Order extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    
+    public function cancelledBy()
+    {
+        return $this->belongsTo(User::class, 'cancelled_by');
+    }
     /**
      * Getter สำหรับรูปแบบการแสดงผลวันที่สร้างคำสั่งซื้อ
      * 
