@@ -10,7 +10,7 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="p-4 bg-white shadow rounded-lg">
             <h2 class="text-lg font-semibold">ยอดขายรวม</h2>
-            <p class="text-2xl font-bold text-green-500">฿{{ number_format($totalSales, 2) ?? 'ไม่พบข้อมูล' }}</p>
+            <p class="text-2xl font-bold text-green-500">฿{{ number_format($totalSales, 2) }}</p>
         </div>
         <div class="p-4 bg-white shadow rounded-lg">
             <h2 class="text-lg font-semibold">จำนวนคำสั่งซื้อ</h2>
