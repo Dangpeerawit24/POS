@@ -40,7 +40,21 @@
                         <td class="border px-4 py-2">{{ $movement->created_at }}</td>
                         <td class="border px-4 py-2">{{ $movement->type }}</td>
                         <td class="border px-4 py-2 text-right">฿{{ number_format($movement->amount, 2) }}</td>
-                        <td class="border px-4 py-2">{{ $movement->note }}</td>
+                        <td class="border px-4 py-2">
+                            @if (strpos($movement->note, '#ORD-') !== false)
+                                @php
+                                    // ตัดข้อความ "ยอดขายจากคำสั่งซื้อ #" ออก และเก็บเฉพาะ orderNumber
+                                    $orderNumber = str_replace('ยอดขายจากคำสั่งซื้อ #', '', $movement->note);
+                                    $orderNumber = trim($orderNumber); // ลบช่องว่างส่วนเกิน
+                                @endphp
+                                <a href="{{ route('sales.detail2', ['orderNumber' => $orderNumber]) }}"
+                                    class="text-sky-500 hover:underline">
+                                    {{ $movement->note }}
+                                </a>
+                            @else
+                                {{ $movement->note }}
+                            @endif
+                        </td>
                         <td class="border px-4 py-2">{{ $movement->user->name ?? 'ไม่ระบุ' }}</td>
                     </tr>
                 @endforeach

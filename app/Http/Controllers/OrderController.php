@@ -23,7 +23,7 @@ class OrderController extends Controller
             ]);
 
             $cashDrawer = CashDrawer::firstOrCreate(['id' => 1], ['current_balance' => 0.00]);
-            
+
             // แปลง cart จาก JSON String เป็น Array
             $cart = is_string($request->input('cart')) ? json_decode($request->input('cart'), true) : $request->input('cart');
 
@@ -96,6 +96,14 @@ class OrderController extends Controller
         $order = \App\Models\Order::with('items')->findOrFail($id);
 
         // ส่งตัวแปร $order ไปยัง View
+        return view('admin.salesdetail', compact('order'));
+    }
+
+    public function salesDetail2($orderNumber)
+    {
+        // ค้นหาคำสั่งซื้อด้วย order_number
+        $order = Order::with('items')->where('order_number', $orderNumber)->firstOrFail();
+
         return view('admin.salesdetail', compact('order'));
     }
 }
