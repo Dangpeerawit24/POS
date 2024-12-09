@@ -35,7 +35,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($cashDrawer->movements as $movement)
+                @foreach ($movements as $movement)
                     <tr>
                         <td class="border px-4 py-2">{{ $movement->created_at }}</td>
                         <td class="border px-4 py-2">{{ $movement->type }}</td>
@@ -43,9 +43,8 @@
                         <td class="border px-4 py-2">
                             @if (strpos($movement->note, '#ORD-') !== false)
                                 @php
-                                    // ตัดข้อความ "ยอดขายจากคำสั่งซื้อ #" ออก และเก็บเฉพาะ orderNumber
                                     $orderNumber = str_replace('ยอดขายจากคำสั่งซื้อ #', '', $movement->note);
-                                    $orderNumber = trim($orderNumber); // ลบช่องว่างส่วนเกิน
+                                    $orderNumber = trim($orderNumber);
                                 @endphp
                                 <a href="{{ route('sales.detail2', ['orderNumber' => $orderNumber]) }}"
                                     class="text-sky-500 hover:underline">
@@ -58,6 +57,7 @@
                         <td class="border px-4 py-2">{{ $movement->user->name ?? 'ไม่ระบุ' }}</td>
                     </tr>
                 @endforeach
+
             </tbody>
         </table>
 
