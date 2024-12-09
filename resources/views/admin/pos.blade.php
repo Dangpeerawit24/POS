@@ -19,8 +19,6 @@
                             <p class=" text-xl font-bold text-sky-500">฿{{ $product->price }}</p>
                         </a>
                     </div>
-                    @empty
-                    <div class="">ไม่มีสินค้าสต็อก</div>
                 @endforeach
             </div>
         </div>
