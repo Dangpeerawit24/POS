@@ -24,23 +24,23 @@
         </form>
 
         <h3 class="text-lg font-semibold mt-6 mb-4">ประวัติการเคลื่อนไหว</h3>
-        <table class="table-auto w-full border-collapse border border-gray-300">
+        <table class="table-auto w-full border-collapse border px-2 overflow-x-auto border-gray-300">
             <thead>
                 <tr>
-                    <th class="border px-4 py-2">วันที่</th>
-                    <th class="border px-4 py-2">ประเภท</th>
-                    <th class="border px-4 py-2">จำนวน</th>
-                    <th class="border px-4 py-2">หมายเหตุ</th>
-                    <th class="border px-4 py-2">ผู้แก้ไข</th>
+                    <th class="border text-nowrap px-4 py-2">วันที่</th>
+                    <th class="border text-nowrap px-4 py-2">ประเภท</th>
+                    <th class="border text-nowrap px-4 py-2">จำนวน</th>
+                    <th class="border text-nowrap px-4 py-2">หมายเหตุ</th>
+                    <th class="border text-nowrap px-4 py-2">ผู้แก้ไข</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($movements as $movement)
                     <tr>
-                        <td class="border px-4 py-2">{{ $movement->created_at }}</td>
-                        <td class="border px-4 py-2">{{ $movement->type }}</td>
-                        <td class="border px-4 py-2 text-right">฿{{ number_format($movement->amount, 2) }}</td>
-                        <td class="border px-4 py-2">
+                        <td class="border text-nowrap px-4 py-2">{{ $movement->created_at }}</td>
+                        <td class="border text-nowrap px-4 py-2">{{ $movement->type }}</td>
+                        <td class="border text-nowrap px-4 py-2 text-right">฿{{ number_format($movement->amount, 2) }}</td>
+                        <td class="border text-nowrap px-4 py-2">
                             @if (strpos($movement->note, '#ORD-') !== false)
                                 @php
                                     $orderNumber = str_replace(['ยอดขายจากคำสั่งซื้อ #', 'คืนเงินสำหรับคำสั่งซื้อ #'], '', $movement->note);
@@ -54,7 +54,7 @@
                                 {{ $movement->note }}
                             @endif
                         </td>
-                        <td class="border px-4 py-2">{{ $movement->user->name ?? 'ไม่ระบุ' }}</td>
+                        <td class="border text-nowrap px-4 py-2">{{ $movement->user->name ?? 'ไม่ระบุ' }}</td>
                     </tr>
                 @endforeach
 

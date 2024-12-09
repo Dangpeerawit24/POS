@@ -53,6 +53,11 @@
                             </form>
                         </td>
                     </tr>
+                    @empty
+                    <div>
+                        <td colspan="2" class="border border-gray-300 px-4 py-2 text-center">
+                            ไม่มีสินค้า</td>
+                    </div>
                 @endforeach
             </tbody>
         </table>

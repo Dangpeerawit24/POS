@@ -50,10 +50,10 @@
                                     No Image
                                 @endif
                             </td>
-                            <td class="px-6 py-4 text-center text-xl text-gray-700">{{ $product->name }}</td>
-                            <td class="px-6 py-4 text-center text-xl text-gray-700">{{ $product->price }}</td>
-                            <td class="px-6 py-4 text-center text-xl text-gray-700">{{ $product->stock_quantity }}</td>
-                            <td class="px-6 py-4 text-center text-xl text-gray-700">{{ $product->category->name ?? 'N/A' }}
+                            <td class="px-6 py-4 text-nowrap text-center text-xl text-gray-700">{{ $product->name }}</td>
+                            <td class="px-6 py-4 text-nowrap text-center text-xl text-gray-700">{{ $product->price }}</td>
+                            <td class="px-6 py-4 text-nowrap text-center text-xl text-gray-700">{{ $product->stock_quantity }}</td>
+                            <td class="px-6 py-4 text-nowrap text-center text-xl text-gray-700">{{ $product->category->name ?? 'N/A' }}
                             </td>
                             <td class="px-6 py-4 text-center text-xl text-gray-700">
                                 <div class="flex justify-center gap-2">
@@ -68,6 +68,11 @@
                                 </div>
                             </td>
                         </tr>
+                        @empty
+                    <div>
+                        <td colspan="2" class="border border-gray-300 px-4 py-2 text-center">
+                            ไม่มีสินค้า</td>
+                    </div>
                     @endforeach
                 </tbody>
             </table>
