@@ -15,7 +15,8 @@ class DashboardController extends Controller
         $totalOrders = Order::count(); // จำนวนคำสั่งซื้อ
         $lowStockProducts = Product::where('stock_quantity', '<', 10)->get(); // สินค้าใกล้หมดสต็อก
         $recentStockMovements = StockMovement::with('user', 'product')->latest()->take(5)->get(); // การอัปเดตสต็อกล่าสุด
+        $cancelledOrders = Order::where('status', 'cancelled')->get();
 
-        return view('admin.dashboard', compact('totalSales', 'totalOrders', 'lowStockProducts', 'recentStockMovements'));
+        return view('admin.dashboard', compact('totalSales', 'totalOrders', 'lowStockProducts', 'recentStockMovements', 'cancelledOrders'));
     }
 }

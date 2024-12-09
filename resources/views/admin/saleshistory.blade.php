@@ -17,6 +17,7 @@
                 <th class="border text-nowrap border-gray-300 px-4 py-2 text-center">รายการ</th>
                 <th class="border text-nowrap border-gray-300 px-4 py-2 text-center">วิธีการชำระเงิน</th>
                 <th class="border text-nowrap border-gray-300 px-4 py-2 text-center">รายละเอียด</th>
+                <th class="border text-nowrap border-gray-300 px-4 py-2 text-center">สถานะ</th>
             </tr>
         </thead>
         <tbody>
@@ -32,6 +33,21 @@
                     <td class="border text-nowrap border-gray-300 px-4 py-2 text-center">
                         <a href="{{ route('sales.detail', $order->id) }}" class="text-blue-500 hover:underline">ดูรายละเอียด</a>
                     </td>
+                    <td>
+                        @if ($order->status !== 'cancelled')
+                            <form action="{{ route('orders.cancel', $order->id) }}" method="POST" onsubmit="return confirm('คุณต้องการยกเลิกบิลนี้ใช่หรือไม่?');">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg">
+                                    ยกเลิกบิล
+                                </button>
+                            </form>
+                        @else
+                            <span class="text-red-500 font-bold">ยกเลิกแล้ว</span><br>
+                            <small class="text-gray-500">โดย {{ $order->cancelledBy->name ?? 'ไม่ทราบ' }}</small>
+                        @endif
+                    </td>
+                    
                 </tr>
             @empty
                 <tr>

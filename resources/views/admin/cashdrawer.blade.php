@@ -43,7 +43,7 @@
                         <td class="border px-4 py-2">
                             @if (strpos($movement->note, '#ORD-') !== false)
                                 @php
-                                    $orderNumber = str_replace('ยอดขายจากคำสั่งซื้อ #', '', $movement->note);
+                                    $orderNumber = str_replace(['ยอดขายจากคำสั่งซื้อ #', 'คืนเงินสำหรับคำสั่งซื้อ #'], '', $movement->note);
                                     $orderNumber = trim($orderNumber);
                                 @endphp
                                 <a href="{{ route('sales.detail2', ['orderNumber' => $orderNumber]) }}"
