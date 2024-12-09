@@ -47,6 +47,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::delete('/admin/users/destroy/{id}', [UsersController::class, 'destroy'])->name('users.destroy');
     Route::get('/admin/sales-history', [OrderController::class, 'salesHistory'])->name('sales.history');
     Route::get('/admin/sales-history/{id}', [OrderController::class, 'salesDetail'])->name('sales.detail');
+    Route::get('/admin/sales-history2/{orderNumber}', [OrderController::class, 'salesDetail2'])->name('sales.detail2');
     Route::get('/admin/stock', [StockController::class, 'index'])->name('admin.stock');
     Route::post('/admin/stock/{id}/add', [StockController::class, 'addStock'])->name('stock.add');
     Route::post('/admin/stock/{id}/reduce', [StockController::class, 'reduceStock'])->name('stock.reduce');
