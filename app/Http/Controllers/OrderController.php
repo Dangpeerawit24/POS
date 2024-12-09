@@ -23,7 +23,7 @@ class OrderController extends Controller
             ]);
 
             $cashDrawer = CashDrawer::firstOrCreate(['id' => 1], ['current_balance' => 0.00]);
-
+            
             // แปลง cart จาก JSON String เป็น Array
             $cart = is_string($request->input('cart')) ? json_decode($request->input('cart'), true) : $request->input('cart');
 
@@ -70,7 +70,7 @@ class OrderController extends Controller
             }
 
             if ($validatedData['payment_method'] === 'cash') {
-                $cashDrawer->adjustBalance($validatedData['total_amount'], 'add', 'ยอดขายสินค้า');
+                $cashDrawer->adjustBalance($validatedData['total_amount'], 'add', 'ยอดขายจากคำสั่งซื้อ #' . $order->order_number);
             }
 
             return response()->json([

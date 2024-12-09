@@ -10,11 +10,14 @@ class CashDrawerController extends Controller
 {
     public function index()
     {
-        $cashDrawer = CashDrawer::firstOrCreate(['id' => 1], ['current_balance' => 0.00]);
-        $movements = $cashDrawer->movements()->latest()->paginate(10);
+        $cashDrawer = CashDrawer::firstOrCreate(['id' => 1], ['current_balance' => '0.00']);
+
+        // ใช้ paginate สำหรับ movements
+        $movements = $cashDrawer->movements()->orderBy('created_at', 'desc')->paginate(10);
 
         return view('admin.cashdrawer', compact('cashDrawer', 'movements'));
     }
+
 
     public function addFunds(Request $request)
     {
