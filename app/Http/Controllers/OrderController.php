@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\CashDrawer;
 
 class OrderController extends Controller
 {
@@ -21,6 +22,8 @@ class OrderController extends Controller
                 'change' => 'nullable|numeric|min:0',
             ]);
 
+            $cashDrawer = CashDrawer::firstOrCreate(['id' => 1], ['current_balance' => 0.00]);
+            
             // แปลง cart จาก JSON String เป็น Array
             $cart = is_string($request->input('cart')) ? json_decode($request->input('cart'), true) : $request->input('cart');
 
@@ -64,6 +67,10 @@ class OrderController extends Controller
                         'quantity' => $item['quantity'],
                     ]);
                 }
+            }
+
+            if ($validatedData['payment_method'] === 'cash') {
+                $cashDrawer->adjustBalance($validatedData['total_amount'], 'add', 'ยอดขายสินค้า');
             }
 
             return response()->json([

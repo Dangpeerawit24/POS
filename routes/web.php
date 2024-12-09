@@ -10,6 +10,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CashDrawerController;
 
 
 Route::get('/', function () {
@@ -50,6 +51,9 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::post('/admin/stock/{id}/add', [StockController::class, 'addStock'])->name('stock.add');
     Route::post('/admin/stock/{id}/reduce', [StockController::class, 'reduceStock'])->name('stock.reduce');
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/cashdrawer', [CashDrawerController::class, 'index'])->name('cashdrawer.index');
+    Route::post('/admin/cashdrawer/add', [CashDrawerController::class, 'addFunds'])->name('cashdrawer.add');
+    Route::post('/admin/cashdrawer/subtract', [CashDrawerController::class, 'subtractFunds'])->name('cashdrawer.subtract');
 
 
     // POS
