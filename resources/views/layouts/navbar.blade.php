@@ -159,7 +159,7 @@
                 </a>
             </li>
             <li>
-                <a href="/admin/stock" class="flex items-center gap-2 p-2 rounded {{ $manu == 'จัดการสต็อกสินค้า' ? ' bg-sky-600 scale-125' : '' }} hover:bg-sky-800">
+                <a href="/admin/stock" class="flex items-center gap-2 p-2 rounded {{ $manu == 'จัดการสต็อกสินค้า' ? ' bg-sky-600 scale-125' : '' }} hover:bg-sky-800 hover:scale-110	">
                     <img src="{{ asset('img/submenu/ic_menu_history_normal.svg') }}" width="30px" height="30px"
                         alt="">
                         จัดการสต็อกสินค้า
