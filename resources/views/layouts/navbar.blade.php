@@ -2,7 +2,7 @@
     <div class="flex justify-between h-16 items-center">
         <!-- Logo -->
         <a href="" class="text-lg flex flex-row gap-2 items-center font-semibold "><img
-                src="{{ asset('img/AdminLogo.png') }}" width="50px" alt=""> ระบบขายวัตุมงคล</a>
+                src="{{ asset('img/AdminLogo.png') }}" width="50px" alt=""> ระบบขายวัตถุมงคล</a>
         <!-- Menu Button -->
         <div class="xl:hidden">
             <label for="menu-toggle" class="cursor-pointer">
@@ -68,6 +68,14 @@
                         <img src="{{ asset('img/submenu/ic_menu_receipt_normal.svg') }}" width="30px"
                             height="30px" alt="">
                         ประวัติการขาย
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/cashdrawer" class="flex items-center gap-2 p-2 rounded hover:bg-sky-800">
+                        <img src="{{ asset('img/submenu/ic_menu_expense.svg') }}" width="30px"
+                            height="30px" alt="">
+                        จัดการกล่องเงินสด
+
                     </a>
                 </li>
                 <li>
@@ -141,6 +149,13 @@
                     <img src="{{ asset('img/submenu/ic_menu_receipt_normal.svg') }}" width="30px"
                         height="30px" alt="">
                     ประวัติการขาย
+                </a>
+            </li>
+            <li>
+                <a href="/admin/cashdrawer" class="flex items-center gap-2 p-2 rounded {{ $manu == 'จัดการกล่องเงินสด' ? ' bg-sky-600 scale-125' : '' }}  hover:bg-sky-800 hover:scale-110	">
+                    <img src="{{ asset('img/submenu/ic_menu_expense.svg') }}" width="30px"
+                        height="30px" alt="">
+                        จัดการกล่องเงินสด
                 </a>
             </li>
             <li>
