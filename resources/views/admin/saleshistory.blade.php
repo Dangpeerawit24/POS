@@ -39,12 +39,12 @@
                             </td>
                             <td>
                                 @if ($order->status !== 'cancelled')
-                                    <form action="{{ route('orders.cancel', $order->id) }}" method="POST" id="orderscancel"
-                                        >
+                                    <form action="{{ route('orders.cancel', $order->id) }}" method="POST"
+                                        id="orderscancel-{{ $order->id }}">
                                         @csrf
                                         @method('PATCH')
                                         <button type="button" class="bg-red-500 text-white px-4 py-2 rounded-lg"
-                                            onclick="submitCancelForm()">
+                                            onclick="submitCancelForm({{ $order->id }})">
                                             ยกเลิกบิล
                                         </button>
                                     </form>
@@ -68,24 +68,22 @@
         </div>
     </div>
     <script>
-        function submitCancelForm() {
+        function submitCancelForm(orderId) {
             Swal.fire({
-                title: 'คุณแน่ใจหรือไม่?',
-                text: 'การยกเลิกบิลนี้จะไม่สามารถกู้คืนได้!',
+                title: 'คุณต้องการยกเลิกบิลนี้ใช่หรือไม่?',
+                text: "การยกเลิกบิลจะไม่สามารถย้อนกลับได้!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: 'ยืนยันการยกเลิก',
-                cancelButtonText: 'ยกเลิก',
+                confirmButtonText: 'ใช่, ยกเลิกบิล!',
+                cancelButtonText: 'ยกเลิก'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    document.getElementById('loader').classList.remove('hidden');
-                    // เรียกฟอร์มที่มี id="orderscancel"
-                    document.getElementById('orderscancel').submit();
-                    document.getElementById('loader').classList.add('hidden');
+                    document.getElementById(`orderscancel-${orderId}`).submit();
                 }
             });
         }
     </script>
+    
 @endsection
