@@ -3,14 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
     public function index(Request $request)
     {
-        $Users = User::all();
-        return view('admin.users', compact('Users'));
+        if (Auth::user()->type === 'admin') {
+            $Users = User::all();
+        } else {
+            $Users = User::where('type', '!=', 1)->get();
+        }
+        
+        if (Auth::user()->type === 'admin') {
+            return view('admin.users', compact('Users'));
+        }elseif (Auth::user()->type === 'manager') {
+            return view('manager.users', compact('Users'));
+        }else {
+            return view('home', compact('products'));
+        }
     }
 
     public function store(Request $request)

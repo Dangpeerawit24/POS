@@ -3,13 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PosController extends Controller
 {
     public function index(Request $request)
     {
         $products = \App\Models\Product::all(); // ดึงรายการสินค้า
-        return view('admin.pos', compact('products'));
+
+        if (Auth::user()->type === 'admin') {
+            return view('admin.pos', compact('products'));
+        }elseif (Auth::user()->type === 'manager') {
+            return view('manager.pos', compact('products'));
+        }else {
+            return view('home', compact('products'));
+        }
     }
 
     public function addToCart(Request $request)
