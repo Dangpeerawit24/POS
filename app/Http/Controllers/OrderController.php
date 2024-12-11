@@ -104,9 +104,9 @@ class OrderController extends Controller
 
         // ส่งตัวแปร $order ไปยัง View
         if (Auth::user()->type === 'admin') {
-            return view('admin.salesdetail', compact('orders'));
+            return view('admin.salesdetail', compact('order'));
         }elseif (Auth::user()->type === 'manager') {
-            return view('manager.salesdetail', compact('orders'));
+            return view('manager.salesdetail', compact('order'));
         }else {
             return view('home', compact('products'));
         }
@@ -118,9 +118,9 @@ class OrderController extends Controller
         $order = Order::with('items')->where('order_number', $orderNumber)->firstOrFail();
 
         if (Auth::user()->type === 'admin') {
-            return view('admin.salesdetail', compact('orders'));
+            return view('admin.salesdetail', compact('order'));
         }elseif (Auth::user()->type === 'manager') {
-            return view('manager.salesdetail', compact('orders'));
+            return view('manager.salesdetail', compact('order'));
         }else {
             return view('home', compact('products'));
         }
