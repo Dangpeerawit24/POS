@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\CashDrawer;
 use App\Models\CashMovement;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class CashDrawerController extends Controller
 {
@@ -16,13 +15,7 @@ class CashDrawerController extends Controller
         // ใช้ paginate สำหรับ movements
         $movements = $cashDrawer->movements()->orderBy('created_at', 'desc')->paginate(10);
 
-        if (Auth::user()->type === 'admin') {
-            return view('admin.cashdrawer', compact('cashDrawer', 'movements'));
-        }elseif (Auth::user()->type === 'manager') {
-            return view('manager.cashdrawer', compact('cashDrawer', 'movements'));
-        }else {
-            return view('home', compact('products'));
-        }
+        return view('admin.cashdrawer', compact('cashDrawer', 'movements'));
     }
 
 
@@ -36,7 +29,7 @@ class CashDrawerController extends Controller
         $cashDrawer = CashDrawer::find(1);
         $cashDrawer->adjustBalance($request->amount, 'add', $request->note);
 
-        return redirect()->back()->with('success', 'เพิ่มเงินสำเร็จ');
+        return redirect()->route('cashdrawer.index')->with('success', 'เพิ่มเงินสำเร็จ');
     }
 
     public function subtractFunds(Request $request)
@@ -49,11 +42,11 @@ class CashDrawerController extends Controller
         $cashDrawer = CashDrawer::find(1);
 
         if ($cashDrawer->current_balance < $request->amount) {
-            return redirect()->back()->with('error', 'ยอดเงินไม่เพียงพอ');
+            return redirect()->route('cashdrawer.index')->with('error', 'ยอดเงินไม่เพียงพอ');
         }
 
         $cashDrawer->adjustBalance($request->amount, 'subtract', $request->note);
 
-        return redirect()->back()->with('success', 'ถอนเงินสำเร็จ');
+        return redirect()->route('cashdrawer.index')->with('success', 'ถอนเงินสำเร็จ');
     }
 }

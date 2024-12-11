@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\StockMovement;
-use Illuminate\Support\Facades\Auth;
 
 class StockController extends Controller
 {
@@ -14,13 +13,7 @@ class StockController extends Controller
     {
         $products = Product::with('latestStockMovement.user')->get();
 
-        if (Auth::user()->type === 'admin') {
-            return view('admin.stock', compact('products'));
-        }elseif (Auth::user()->type === 'manager') {
-            return view('manager.stock', compact('products'));
-        }else {
-            return view('home', compact('products'));
-        }
+        return view('admin.stock', compact('products'));
     }
 
 
@@ -43,7 +36,7 @@ class StockController extends Controller
             'note' => $request->note,
         ]);
 
-        return redirect()->back()->with('success', 'เพิ่มสินค้าในสต็อกเรียบร้อย');
+        return redirect()->route('admin.stock')->with('success', 'เพิ่มสินค้าในสต็อกเรียบร้อย');
     }
 
 
@@ -71,6 +64,6 @@ class StockController extends Controller
             'note' => $request->note,
         ]);
 
-        return redirect()->back()->with('success', 'ลดสินค้าในสต็อกเรียบร้อย');
+        return redirect()->route('admin.stock')->with('success', 'ลดสินค้าในสต็อกเรียบร้อย');
     }
 }

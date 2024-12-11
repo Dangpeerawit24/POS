@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\StockMovement;
-use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -33,12 +32,6 @@ class DashboardController extends Controller
         $cancelledOrders = Order::where('status', 'cancelled')->orderBy('created_at', 'desc')->get();
 
         // ส่งข้อมูลไปยัง View
-        if (Auth::user()->type === 'admin') {
-            return view('admin.dashboard', compact('totalSales', 'totalOrders', 'salesToday', 'lowStockProducts', 'recentStockMovements', 'cancelledOrders'));
-        }elseif (Auth::user()->type === 'manager') {
-            return view('manager.dashboard', compact('totalSales', 'totalOrders', 'salesToday', 'lowStockProducts', 'recentStockMovements', 'cancelledOrders'));
-        }else {
-            return view('home', compact('products'));
-        }
+        return view('admin.dashboard', compact('totalSales', 'totalOrders', 'salesToday', 'lowStockProducts', 'recentStockMovements', 'cancelledOrders'));
     }
 }
