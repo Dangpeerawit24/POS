@@ -322,23 +322,43 @@
     <!-- Modal สำหรับแก้ไขจำนวน -->
     <div id="editModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
         <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm">
-            <h2 class="text-2xl font-bold text-center mb-4">แก้ไขจำนวนสินค้า</h2>
-            <div class="mb-4">
-                <p class="text-lg font-medium" id="modalProductName">สินค้า</p>
-                <input type="number" id="modalQuantity"
-                    class="mt-2 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
-                    min="1" />
-            </div>
-            <div class="flex justify-end gap-4">
-                <button class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400" onclick="closeModal()">
-                    ยกเลิก
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">จำนวนสินค้า</h2>
+                <button onclick="closeModal()" class="text-gray-600 hover:text-gray-800">
+                    <i class="fa-solid fa-times text-2xl"></i>
                 </button>
-                <button class="px-4 py-2 bg-sky-400 text-white rounded-lg hover:bg-sky-600" onclick="saveQuantity()">
-                    บันทึก
+            </div>
+
+            <!-- Display for Quantity -->
+            <div class="text-center text-4xl font-bold mb-4">
+                <span id="modalQuantityDisplay">1</span>
+            </div>
+
+            <!-- Keypad -->
+            <div class="grid grid-cols-3 gap-1 mb-4">
+                <button onclick="enterNumber(7)" class="p-4 bg-gray-200 rounded-lg text-xl">7</button>
+                <button onclick="enterNumber(8)" class="p-4 bg-gray-200 rounded-lg text-xl">8</button>
+                <button onclick="enterNumber(9)" class="p-4 bg-gray-200 rounded-lg text-xl">9</button>
+                <button onclick="enterNumber(4)" class="p-4 bg-gray-200 rounded-lg text-xl">4</button>
+                <button onclick="enterNumber(5)" class="p-4 bg-gray-200 rounded-lg text-xl">5</button>
+                <button onclick="enterNumber(6)" class="p-4 bg-gray-200 rounded-lg text-xl">6</button>
+                <button onclick="enterNumber(1)" class="p-4 bg-gray-200 rounded-lg text-xl">1</button>
+                <button onclick="enterNumber(2)" class="p-4 bg-gray-200 rounded-lg text-xl">2</button>
+                <button onclick="enterNumber(3)" class="p-4 bg-gray-200 rounded-lg text-xl">3</button>
+                <button onclick="clearInput()"
+                    class="bg-red-100 text-red-600 rounded-lg text-2xl font-bold py-4">ลบ</button>
+                <button onclick="enterNumber(0)" class="p-4 bg-gray-200 rounded-lg text-xl">0</button>
+            </div>
+
+            <!-- Confirm Button -->
+            <div>
+                <button onclick="saveQuantity()" class="w-full py-3 bg-blue-500 text-white text-2xl font-bold rounded-lg">
+                    ตกลง
                 </button>
             </div>
         </div>
     </div>
+
     <script>
         function toggleSidebar() {
             const sidebar = document.getElementById('cartSidebar');
@@ -354,14 +374,16 @@
     </script>
     <script>
         let currentProductId = null; // เก็บ ID สินค้าที่กำลังแก้ไข
+        let currentQuantity = 1; // เก็บจำนวนสินค้าปัจจุบัน
 
         // ฟังก์ชันเปิด Modal
-        function openModal(productId, productName, currentQuantity) {
+        function openModal(productId, productName, quantity) {
             currentProductId = productId;
+            currentQuantity = quantity;
 
             // อัปเดตรายละเอียดใน Modal
-            document.getElementById('modalProductName').textContent = productName;
-            document.getElementById('modalQuantity').value = currentQuantity;
+            // document.getElementById('modalProductName').textContent = productName;
+            document.getElementById('modalQuantityDisplay').textContent = currentQuantity; // แสดงจำนวนสินค้าใน Display
 
             // แสดง Modal
             document.getElementById('editModal').classList.remove('hidden');
@@ -371,20 +393,37 @@
         function closeModal() {
             document.getElementById('editModal').classList.add('hidden');
             currentProductId = null; // รีเซ็ต ID สินค้า
+            currentQuantity = 1; // รีเซ็ตจำนวนสินค้า
+        }
+
+        // ฟังก์ชันเพิ่มตัวเลขผ่าน Keypad
+        function enterNumber(number) {
+            currentQuantity = parseInt(`${currentQuantity}${number}`, 10);
+            document.getElementById('modalQuantityDisplay').textContent = currentQuantity; // อัปเดต Display
+        }
+
+        // ฟังก์ชันใช้ Shortcut เพิ่มจำนวนสินค้า
+        function enterShortcut(amount) {
+            currentQuantity += amount;
+            document.getElementById('modalQuantityDisplay').textContent = currentQuantity; // อัปเดต Display
+        }
+
+        // ฟังก์ชันล้างจำนวนสินค้า
+        function clearInput() {
+            currentQuantity = 0;
+            document.getElementById('modalQuantityDisplay').textContent = currentQuantity; // อัปเดต Display
         }
 
         // ฟังก์ชันบันทึกจำนวนสินค้า
         function saveQuantity() {
-            const newQuantity = parseInt(document.getElementById('modalQuantity').value, 10);
-
-            if (isNaN(newQuantity) || newQuantity < 1) {
+            if (isNaN(currentQuantity) || currentQuantity < 1) {
                 alert('กรุณากรอกจำนวนที่ถูกต้อง');
                 return;
             }
 
             // อัปเดตจำนวนสินค้าในตะกร้า
             if (cart[currentProductId]) {
-                cart[currentProductId].quantity = newQuantity;
+                cart[currentProductId].quantity = currentQuantity;
             }
 
             updateCart(); // อัปเดต UI
