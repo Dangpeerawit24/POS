@@ -23,16 +23,16 @@ Auth::routes();
 /*------------------------------------------
 All Normal Users Routes List
 --------------------------------------------*/
-Route::middleware(['auth', 'user-access:user'])->group(function () {
-  
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::middleware(['auth', 'user-access:staff'])->group(function () {
+
+    Route::get('/home', [POSController::class, 'index'])->name('home');
 });
-  
+
 /*------------------------------------------
 All Admin Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
-  
+
     Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
     Route::view('/admin/index', 'admin.index');
     Route::resource('/admin/products', ProductController::class);
@@ -56,22 +56,46 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/cashdrawer', [CashDrawerController::class, 'index'])->name('cashdrawer.index');
     Route::post('/admin/cashdrawer/add', [CashDrawerController::class, 'addFunds'])->name('cashdrawer.add');
     Route::post('/admin/cashdrawer/subtract', [CashDrawerController::class, 'subtractFunds'])->name('cashdrawer.subtract');
-
-
     // POS
     Route::get('/pos', [POSController::class, 'index'])->name('pos.index');
     Route::post('/pos/add-to-cart', [POSController::class, 'addToCart'])->name('pos.addToCart');
     Route::get('/pos/calculate-total', [POSController::class, 'calculateTotal'])->name('pos.calculateTotal');
     Route::post('/pos/checkout', [POSController::class, 'checkout'])->name('pos.checkout');
-
 });
 
 /*------------------------------------------
-All Member Routes List
+All Manager Routes List
 --------------------------------------------*/
-Route::middleware(['auth', 'user-access:member'])->group(function () {
-  
-    Route::get('/member/home', [HomeController::class, 'memberHome'])->name('member.home');
+Route::middleware(['auth', 'user-access:manager'])->group(function () {
+
+    Route::get('/manager/home', [HomeController::class, 'managerHome'])->name('manager.home');
+    Route::view('/manager/index', 'manager.index');
+    Route::resource('/manager/products', ProductController::class);
+    Route::delete('/manager/products/destroy/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+    Route::put('/manager/products/update/{id}', [ProductController::class, 'update'])->name('products.update');
+    Route::resource('/manager/categories', CategoriesController::class);
+    Route::delete('/manager/categories/destroy/{id}', [CategoriesController::class, 'destroy'])->name('products.destroy');
+    Route::put('/manager/categories/update/{id}', [CategoriesController::class, 'update'])->name('products.update');
+    Route::resource('/manager/pos', PosController::class);
+    Route::resource('/manager/users', UsersController::class);
+    Route::put('/manager/users/update/{id}', [UsersController::class, 'update'])->name('users.update');
+    Route::delete('/manager/users/destroy/{id}', [UsersController::class, 'destroy'])->name('users.destroy');
+    Route::get('/manager/sales-history', [OrderController::class, 'salesHistory'])->name('sales.history');
+    Route::get('/manager/sales-history/{id}', [OrderController::class, 'salesDetail'])->name('sales.detail');
+    Route::get('/manager/sales-history2/{orderNumber}', [OrderController::class, 'salesDetail2'])->name('sales.detail2');
+    Route::patch('/orders/{id}/cancel', [OrderController::class, 'cancelOrder'])->name('orders.cancel');
+    Route::get('/manager/stock', [StockController::class, 'index'])->name('manager.stock');
+    Route::post('/manager/stock/{id}/add', [StockController::class, 'addStock'])->name('stock.add');
+    Route::post('/manager/stock/{id}/reduce', [StockController::class, 'reduceStock'])->name('stock.reduce');
+    Route::get('/manager/dashboard', [DashboardController::class, 'index'])->name('manager.dashboard');
+    Route::get('/manager/cashdrawer', [CashDrawerController::class, 'index'])->name('cashdrawer.index');
+    Route::post('/manager/cashdrawer/add', [CashDrawerController::class, 'addFunds'])->name('cashdrawer.add');
+    Route::post('/manager/cashdrawer/subtract', [CashDrawerController::class, 'subtractFunds'])->name('cashdrawer.subtract');
+    // POS
+    Route::get('/pos', [POSController::class, 'index'])->name('pos.index');
+    Route::post('/pos/add-to-cart', [POSController::class, 'addToCart'])->name('pos.addToCart');
+    Route::get('/pos/calculate-total', [POSController::class, 'calculateTotal'])->name('pos.calculateTotal');
+    Route::post('/pos/checkout', [POSController::class, 'checkout'])->name('pos.checkout');
 });
 
 

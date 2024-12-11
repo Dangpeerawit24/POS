@@ -4,13 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoriesController extends Controller
 {
     public function index(Request $request)
     {
         $categories = Category::all();
-        return view('admin.categorys', compact('categories'));
+        if (Auth::user()->type === 'admin') {
+            return view('admin.categorys', compact('categories'));
+        }elseif (Auth::user()->type === 'manager') {
+            return view('manager.categorys', compact('categories'));
+        }else {
+            return view('home', compact('products'));
+        }
     }
 
     public function store(Request $request)
@@ -50,9 +57,9 @@ class CategoriesController extends Controller
             $Category->delete(); // ลบสินค้า
 
             // คืนค่าการแจ้งเตือนหรือกลับไปยังหน้าก่อนหน้า
-            return redirect()->route('categories.index')->with('success', 'สินค้าถูกลบแล้ว.');
+            return redirect()->back()->with('success', 'สินค้าถูกลบแล้ว.');
         } catch (\Exception $e) {
-            return redirect()->route('categories.index')->with('error', 'Failed to delete Category.');
+            return redirect()->back()->with('error', 'Failed to delete Category.');
         }
     }
 }
