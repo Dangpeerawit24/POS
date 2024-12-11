@@ -336,18 +336,18 @@
 
             <!-- Keypad -->
             <div class="grid grid-cols-3 gap-1 mb-4">
-                <button onclick="enterNumber(7)" class="p-4 bg-gray-200 rounded-lg text-xl">7</button>
-                <button onclick="enterNumber(8)" class="p-4 bg-gray-200 rounded-lg text-xl">8</button>
-                <button onclick="enterNumber(9)" class="p-4 bg-gray-200 rounded-lg text-xl">9</button>
-                <button onclick="enterNumber(4)" class="p-4 bg-gray-200 rounded-lg text-xl">4</button>
-                <button onclick="enterNumber(5)" class="p-4 bg-gray-200 rounded-lg text-xl">5</button>
-                <button onclick="enterNumber(6)" class="p-4 bg-gray-200 rounded-lg text-xl">6</button>
-                <button onclick="enterNumber(1)" class="p-4 bg-gray-200 rounded-lg text-xl">1</button>
-                <button onclick="enterNumber(2)" class="p-4 bg-gray-200 rounded-lg text-xl">2</button>
-                <button onclick="enterNumber(3)" class="p-4 bg-gray-200 rounded-lg text-xl">3</button>
-                <button onclick="clearInput()"
+                <button onclick="enterNumber2(7)" class="p-4 bg-gray-200 rounded-lg text-xl">7</button>
+                <button onclick="enterNumber2(8)" class="p-4 bg-gray-200 rounded-lg text-xl">8</button>
+                <button onclick="enterNumber2(9)" class="p-4 bg-gray-200 rounded-lg text-xl">9</button>
+                <button onclick="enterNumber2(4)" class="p-4 bg-gray-200 rounded-lg text-xl">4</button>
+                <button onclick="enterNumber2(5)" class="p-4 bg-gray-200 rounded-lg text-xl">5</button>
+                <button onclick="enterNumber2(6)" class="p-4 bg-gray-200 rounded-lg text-xl">6</button>
+                <button onclick="enterNumber2(1)" class="p-4 bg-gray-200 rounded-lg text-xl">1</button>
+                <button onclick="enterNumber2(2)" class="p-4 bg-gray-200 rounded-lg text-xl">2</button>
+                <button onclick="enterNumber2(3)" class="p-4 bg-gray-200 rounded-lg text-xl">3</button>
+                <button onclick="clearInput2()"
                     class="bg-red-100 text-red-600 rounded-lg text-2xl font-bold py-4">ลบ</button>
-                <button onclick="enterNumber(0)" class="p-4 bg-gray-200 rounded-lg text-xl">0</button>
+                <button onclick="enterNumber2(0)" class="p-4 bg-gray-200 rounded-lg text-xl">0</button>
             </div>
 
             <!-- Confirm Button -->
@@ -397,19 +397,19 @@
         }
 
         // ฟังก์ชันเพิ่มตัวเลขผ่าน Keypad
-        function enterNumber(number) {
+        function enterNumber2(number) {
             currentQuantity = parseInt(`${currentQuantity}${number}`, 10);
             document.getElementById('modalQuantityDisplay').textContent = currentQuantity; // อัปเดต Display
         }
 
         // ฟังก์ชันใช้ Shortcut เพิ่มจำนวนสินค้า
-        function enterShortcut(amount) {
+        function enterShortcut2(amount) {
             currentQuantity += amount;
             document.getElementById('modalQuantityDisplay').textContent = currentQuantity; // อัปเดต Display
         }
 
         // ฟังก์ชันล้างจำนวนสินค้า
-        function clearInput() {
+        function clearInput2() {
             currentQuantity = 0;
             document.getElementById('modalQuantityDisplay').textContent = currentQuantity; // อัปเดต Display
         }
