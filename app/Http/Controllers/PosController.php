@@ -15,7 +15,7 @@ class PosController extends Controller
             return view('admin.pos', compact('products'));
         }elseif (Auth::user()->type === 'manager') {
             return view('manager.pos', compact('products'));
-        }else {
+        }elseif (Auth::user()->type === 'staff') {
             return view('home', compact('products'));
         }
     }

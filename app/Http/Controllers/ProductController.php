@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -12,15 +11,7 @@ class ProductController extends Controller
     {
         $categories = \App\Models\Category::all();
         $products = Product::all();
-
         return view('admin.products', compact('products', 'categories'));
-        if (Auth::user()->type === 'admin') {
-            return view('admin.products', compact('products', 'categories'));
-        }elseif (Auth::user()->type === 'manager') {
-            return view('manager.products', compact('products', 'categories'));
-        }else {
-            return view('home', compact('products'));
-        }
     }
 
     public function store(Request $request)
@@ -103,9 +94,9 @@ class ProductController extends Controller
             $product->delete(); // ลบสินค้า
 
             // คืนค่าการแจ้งเตือนหรือกลับไปยังหน้าก่อนหน้า
-            return redirect()->back()->with('success', 'สินค้าถูกลบแล้ว.');
+            return redirect()->route('products.index')->with('success', 'สินค้าถูกลบแล้ว.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed to delete product.');
+            return redirect()->route('products.index')->with('error', 'Failed to delete product.');
         }
     }
 

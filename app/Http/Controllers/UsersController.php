@@ -15,14 +15,7 @@ class UsersController extends Controller
         } else {
             $Users = User::where('type', '!=', 1)->get();
         }
-        
-        if (Auth::user()->type === 'admin') {
-            return view('admin.users', compact('Users'));
-        }elseif (Auth::user()->type === 'manager') {
-            return view('manager.users', compact('Users'));
-        }else {
-            return view('home', compact('products'));
-        }
+        return view('admin.users', compact('Users'));
     }
 
     public function store(Request $request)
