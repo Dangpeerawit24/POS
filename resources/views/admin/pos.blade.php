@@ -15,7 +15,7 @@
                         <a href="#"
                             onclick="addToCart({{ $product->id }}, '{{ $product->name }}', {{ $product->price }})">
                             <img src="{{ asset('img/product/' . $product->image) }}" alt="">
-                            <h1 class=" text-lg font-bold mt-2">{{ $product->name }}</h1>
+                            <h1 class="text-lg font-bold mt-2 line-clamp-2">{{ $product->name }}</h1>
                             <p class=" text-xl font-bold text-sky-500">฿{{ $product->price }}</p>
                         </a>
                     </div>
