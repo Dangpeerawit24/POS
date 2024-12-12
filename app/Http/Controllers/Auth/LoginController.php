@@ -68,4 +68,14 @@ class LoginController extends Controller
                 ->with('error', 'Email-Address And Password Are Wrong.');
         }
     }
+
+    protected function redirectTo()
+    {
+        if (Auth::check() && Auth::user()->type) {
+            return route(Auth::user()->type . '.dashboard'); // เรียกใช้ Route ตาม type
+        }
+
+        return '/login'; // กรณีไม่มี type หรือไม่ได้ Login
+    }
+
 }
