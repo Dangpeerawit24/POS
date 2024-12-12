@@ -24,8 +24,8 @@
     document.querySelectorAll('a').forEach(function(link) {
         link.addEventListener('click', function() {
             if (link.id !== 'pos') {
-            document.getElementById('loader').classList.remove('hidden');
-        }
+                document.getElementById('loader').classList.remove('hidden');
+            }
         });
     });
 
@@ -94,3 +94,27 @@
         });
     @endif
 </script>
+{{-- <script>
+    let logoutTimer;
+
+    // ฟังก์ชันรีเซ็ต Timer
+    function resetLogoutTimer() {
+        clearTimeout(logoutTimer);
+        logoutTimer = setTimeout(() => {
+            document.getElementById('logout-form').submit();
+        }, 600000); // 600000 ms = 10 นาที
+    }
+
+    // เหตุการณ์ที่รีเซ็ต Timer
+    window.onload = resetLogoutTimer;
+    document.onmousemove = resetLogoutTimer;
+    document.onkeypress = resetLogoutTimer;
+    document.ontouchstart = resetLogoutTimer;
+    document.onscroll = resetLogoutTimer;
+
+    // ตรวจสอบก่อนออกจากระบบ
+    document.getElementById('logout-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('logout-form').submit();
+    });
+</script> --}}
