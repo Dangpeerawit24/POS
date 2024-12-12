@@ -1,7 +1,7 @@
 <div class="w-full mx-0 px-4 sm:px-4 lg:px-8">
     <div class="flex justify-between h-16 items-center">
         <!-- Logo -->
-        <a href="" class="text-lg flex flex-row gap-2 items-center font-semibold "><img
+        <a href="/{{Auth::user()->type}}/pos" class="text-lg flex flex-row gap-2 items-center font-semibold "><img
                 src="{{ asset('img/AdminLogo.png') }}" width="50px" alt=""> ระบบขายวัตถุมงคล</a>
         <!-- Menu Button -->
         <div class="xl:hidden">
