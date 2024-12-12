@@ -7,11 +7,11 @@
         <div class="w-full lg:w-3/5 overflow-auto scrollbar-hide  bg-gray-100">
             <div class=" fixed lg:sticky flex flex-col w-full h-auto bg-white overflow-auto scrollbar-hide">
                 <h2 class=" text-2xl">เลือกประเภทสินค้า</h2>
-                <div class="flex flex-row lg:flex-wrap gap-1 overflow-auto scrollbar-hide">
-                    <button class="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2"
+                <div class="flex flex-row lg:flex-wrap gap-1 mb-2 overflow-auto scrollbar-hide">
+                    <button class="px-4 py-2 bg-blue-500 text-white rounded-lg"
                         onclick="filterProducts('all')">ทั้งหมด</button>
                     @foreach ($categories as $category)
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2 text-nowrap"
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded-lg text-nowrap"
                             onclick="filterProducts('{{ $category->id }}')">
                             {{ $category->name }}
                         </button>
