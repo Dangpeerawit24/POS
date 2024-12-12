@@ -174,7 +174,7 @@
                     </li>
                 @else
                     <li class="">
-                        <a href="/home" class="flex items-center gap-2 p-2 rounded hover:bg-sky-800">
+                        <a href="/staff/pos" class="flex items-center gap-2 p-2 rounded hover:bg-sky-800">
                             <img src="{{ asset('img/submenu/ic_menu_store_normal.svg') }}" width="30px"
                                 height="30px" alt="">
                             หน้าขาย
@@ -348,7 +348,7 @@
             @else
                 <ul class="flex-1 m-4 p-2 space-y-4">
                     <li class="">
-                        <a href="/home"
+                        <a href="/staff/pos"
                             class="flex items-center gap-2 p-2 rounded {{ $manu == 'หน้าขาย' ? ' bg-sky-600 scale-125' : '' }} hover:bg-sky-800 hover:scale-110	">
                             <img src="{{ asset('img/submenu/ic_menu_store_normal.svg') }}" width="30px"
                                 height="30px" alt="">
