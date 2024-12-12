@@ -3,32 +3,22 @@
     $manu = 'หน้าขาย';
 @endphp
 @Section('content')
-    <div class="row flex flex-col lg:flex-row gap-1 h-full fixed overflow-hidden">
+    <div class="row flex flex-col lg:flex-row gap-1 h-full fixed overflow-hidden scrollbar-hide">
         <div class="w-full lg:w-3/5 overflow-auto scrollbar-hide  bg-gray-100">
-            <div class=" sticky flex flex-col w-full h-auto bg-white">
+            <div class=" fixed lg:sticky flex flex-col w-full h-auto bg-white overflow-auto scrollbar-hide">
                 <h2 class=" text-2xl">เลือกประเภทสินค้า</h2>
-                <div class="flex flex-row lg:flex-wrap gap-1 my-1 overflow-auto scrollbar-hide">
+                <div class="flex flex-row lg:flex-wrap gap-1 overflow-auto scrollbar-hide">
                     <button class="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2"
                         onclick="filterProducts('all')">ทั้งหมด</button>
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2"
-                        onclick="filterProducts('all')">ทั้งหมด</button>
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2"
-                        onclick="filterProducts('all')">ทั้งหมด</button>
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2"
-                        onclick="filterProducts('all')">ทั้งหมด</button>
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2"
-                        onclick="filterProducts('all')">ทั้งหมด</button>
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2"
-                        onclick="filterProducts('all')">ทั้งหมด</button>
                     @foreach ($categories as $category)
-                        <button class="px-4 py-2 bg-green-500 text-white text-nowrap rounded-lg mr-2"
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2 text-nowrap"
                             onclick="filterProducts('{{ $category->id }}')">
                             {{ $category->name }}
                         </button>
                     @endforeach
                 </div>
             </div>
-            <div class="grid grid-cols-2 mb-56  lg:mt-2 lg:mb-48 md:grid-cols-3 xl:grid-cols-4 scrollbar-hide  overflow-x-auto"
+            <div class="grid grid-cols-2 pt-20 mb-56 lg:pt-0 lg:mt-2 lg:mb-48 md:grid-cols-3 xl:grid-cols-4 scrollbar-hide  overflow-x-auto"
                 id="productContainer">
                 @foreach ($products as $product)
                     <div class="product-card bg-sky-100 w-auto md:w-auto h-auto flex items-end  m-1 p-2 rounded-lg shadow-xl border-2 border-blue-300 lg:hover:scale-105 transition-transform duration-500 ease-in-out	"
