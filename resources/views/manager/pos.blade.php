@@ -3,15 +3,36 @@
     $manu = 'หน้าขาย';
 @endphp
 @Section('content')
-    <div class="row flex flex-col lg:flex-row gap-1  h-full fixed overflow-hidden">
-        <div class="w-full lg:w-3/5 overflow-y-scroll bg-gray-100">
-            <div class=" fixed  w-full h-10 bg-white">
+    <div class="row flex flex-col lg:flex-row gap-1 h-full fixed overflow-hidden">
+        <div class="w-full lg:w-3/5 overflow-hidden bg-gray-100">
+            <div class=" sticky flex flex-col w-full h-auto bg-white">
                 <h2 class=" text-2xl">เลือกประเภทสินค้า</h2>
+                <div class="flex flex-row lg:flex-wrap gap-1 my-1 overflow-auto scrollbar-hide">
+                    <button class="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2"
+                        onclick="filterProducts('all')">ทั้งหมด</button>
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2"
+                        onclick="filterProducts('all')">ทั้งหมด</button>
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2"
+                        onclick="filterProducts('all')">ทั้งหมด</button>
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2"
+                        onclick="filterProducts('all')">ทั้งหมด</button>
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2"
+                        onclick="filterProducts('all')">ทั้งหมด</button>
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2"
+                        onclick="filterProducts('all')">ทั้งหมด</button>
+                    @foreach ($categories as $category)
+                        <button class="px-4 py-2 bg-green-500 text-white text-nowrap rounded-lg mr-2"
+                            onclick="filterProducts('{{ $category->id }}')">
+                            {{ $category->name }}
+                        </button>
+                    @endforeach
+                </div>
             </div>
-            <div class="pt-10 grid grid-cols-2 mb-56 lg:mb-48 md:grid-cols-3 xl:grid-cols-4 ">
+            <div class="grid grid-cols-2 mb-56  lg:mt-2 lg:mb-48 md:grid-cols-3 xl:grid-cols-4 scrollbar-hide  overflow-x-auto"
+                id="productContainer">
                 @foreach ($products as $product)
-                    <div
-                        class=" bg-sky-100 w-auto md:w-auto h-auto flex items-end  m-1 p-2 rounded-lg shadow-xl border-2 border-blue-300 lg:hover:scale-105 transition-transform duration-500 ease-in-out	">
+                    <div class="product-card bg-sky-100 w-auto md:w-auto h-auto flex items-end  m-1 p-2 rounded-lg shadow-xl border-2 border-blue-300 lg:hover:scale-105 transition-transform duration-500 ease-in-out	"
+                        data-category="{{ $product->category_id }}">
                         <a id="pos" href="#"
                             onclick="addToCart({{ $product->id }}, '{{ $product->name }}', {{ $product->price }})">
                             <img src="{{ asset('img/product/' . $product->image) }}" alt="">
@@ -716,6 +737,20 @@
                     });
                 }
             }
+        }
+
+        function filterProducts(category) {
+            const productCards = document.querySelectorAll('.product-card');
+
+            productCards.forEach(card => {
+                const productCategory = card.getAttribute('data-category');
+
+                if (category === 'all' || productCategory === category) {
+                    card.classList.remove('hidden'); // แสดงสินค้าที่ตรงกับประเภท
+                } else {
+                    card.classList.add('hidden'); // ซ่อนสินค้าที่ไม่ตรงกับประเภท
+                }
+            });
         }
     </script>
 @endSection
