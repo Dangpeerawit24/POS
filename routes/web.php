@@ -35,7 +35,9 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
     Route::view('/admin/index', 'admin.index');
-    Route::resource('/admin/products', ProductController::class);
+    Route::resource('/admin/products', ProductController::class)->names([
+        'store' => 'admin.products.store',
+    ]);
     Route::delete('/admin/products/destroy/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
     Route::put('/admin/products/update/{id}', [ProductController::class, 'update'])->name('products.update');
     Route::resource('/admin/categories', CategoriesController::class);
@@ -70,14 +72,20 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
 
     Route::get('/manager/home', [HomeController::class, 'managerHome'])->name('manager.home');
     Route::view('/manager/index', 'manager.index');
-    Route::resource('/manager/products', ProductController::class);
+    Route::resource('/manager/products', ProductController::class)->names([
+        'store' => 'manager.products.store',
+    ]);
     Route::delete('/manager/products/destroy/{id}', [ProductController::class, 'destroy'])->name('manager.products.destroy');
     Route::put('/manager/products/update/{id}', [ProductController::class, 'update'])->name('manager.products.update');
-    Route::resource('/manager/categories', CategoriesController::class);
+    Route::resource('/manager/categories', CategoriesController::class)->names([
+        'store' => 'manager.categories.store',
+    ]);
     Route::delete('/manager/categories/destroy/{id}', [CategoriesController::class, 'destroy'])->name('manager.products.destroy');
     Route::put('/manager/categories/update/{id}', [CategoriesController::class, 'update'])->name('manager.products.update');
     Route::resource('/manager/pos', PosController::class);
-    Route::resource('/manager/users', UsersController::class);
+    Route::resource('/manager/users', UsersController::class)->names([
+        'store' => 'manager.users.store',
+    ]);
     Route::put('/manager/users/update/{id}', [UsersController::class, 'update'])->name('manager.users.update');
     Route::delete('/manager/users/destroy/{id}', [UsersController::class, 'destroy'])->name('manager.users.destroy');
     Route::get('/manager/sales-history', [OrderController::class, 'salesHistory'])->name('manager.sales.history');

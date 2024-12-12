@@ -4,7 +4,7 @@
 @endphp
 @Section('content')
     <div class="row flex flex-col lg:flex-row gap-1  h-full fixed overflow-hidden">
-        <div class="w-full lg:w-3/5 rounded-lg shadow-lg overflow-y-scroll bg-gray-100">
+        <div class="w-full lg:w-3/5 overflow-y-scroll bg-gray-100">
             <div class=" fixed  w-full h-10 bg-white">
                 <h2 class=" text-2xl">เลือกประเภทสินค้า</h2>
             </div>
