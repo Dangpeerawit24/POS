@@ -10,10 +10,23 @@ class UsersController extends Controller
 {
     public function index(Request $request)
     {
-        if (Auth::user()->type === 'admin') {
+        if (Auth::user()->type === 'superadmin') {
             $Users = User::all();
+        } else if (Auth::user()->type === 'admin') {
+            if (Auth::user()->email === 'dang.peerawit24@gmail.com') {
+                $Users = User::orderByRaw("CASE WHEN email = ? THEN 0 ELSE 1 END", [Auth::user()->email])
+                    ->get();
+            } else {
+                $Users = User::where('email', '!=', 'dang.peerawit24@gmail.com')->orderByRaw("CASE WHEN email = ? THEN 0 ELSE 1 END", [Auth::user()->email])->get();
+            }
         } else {
-            $Users = User::where('type', '!=', 1)->get();
+            $Users = User::whereNotIn('type', [1, 3])
+                ->where(function ($query) {
+                    $query->where('type', '!=', 2)
+                        ->orWhere('email', '=', Auth::user()->email);
+                })
+                ->orderByRaw("CASE WHEN email = ? THEN 0 ELSE 1 END", [Auth::user()->email]) // จัดลำดับ email ที่ตรงกับตัวเองก่อน
+                ->get();
         }
 
         if (Auth::user()->type === 'admin') {
