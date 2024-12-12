@@ -9,7 +9,8 @@
     <div id="loader" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden z-50">
         <div class="flex flex-col items-center">
             <!-- Spinner -->
-            <div class="w-16 h-16 border-4 border-blue-500 border-t-transparent border-dashed rounded-full animate-spin"></div>
+            <div class="w-16 h-16 border-4 border-blue-500 border-t-transparent border-dashed rounded-full animate-spin">
+            </div>
             <!-- Text -->
             <p class="mt-4 text-white text-lg font-semibold">Loading...</p>
         </div>
@@ -21,6 +22,17 @@
         </div>
     </div>
     @include('layouts.script')
+    @php
+        $isInAppBrowser = str_contains(request()->header('User-Agent'), 'WebView');
+    @endphp
+
+    @if (!$isInAppBrowser)
+        <!-- แสดง Header -->
+        <header>
+            <h1>ส่วนหัวของเว็บ</h1>
+        </header>
+    @endif
+
 </body>
 
 </html>
