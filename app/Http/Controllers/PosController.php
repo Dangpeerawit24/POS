@@ -10,13 +10,14 @@ class PosController extends Controller
     public function index(Request $request)
     {
         $products = \App\Models\Product::where('stock_quantity', '>', 0)->get();
+        $categories = \App\Models\Category::all();
 
         if (Auth::user()->type === 'admin') {
-            return view('admin.pos', compact('products'));
+            return view('admin.pos', compact('products', 'categories'));
         }elseif (Auth::user()->type === 'manager') {
-            return view('manager.pos', compact('products'));
+            return view('manager.pos', compact('products', 'categories'));
         }elseif (Auth::user()->type === 'staff') {
-            return view('home', compact('products'));
+            return view('home', compact('products', 'categories'));
         }
     }
 
