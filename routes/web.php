@@ -24,7 +24,9 @@ Auth::routes();
 All Normal Users Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:staff'])->group(function () {
-    Route::get('/staff/home', [HomeController::class, 'staffHome'])->name('staff.home');
+
+    Route::get('/home', [POSController::class, 'index'])->name('home');
+    Route::get('/staff/pos', [POSController::class, 'index'])->name('pos');
 });
 
 /*------------------------------------------
