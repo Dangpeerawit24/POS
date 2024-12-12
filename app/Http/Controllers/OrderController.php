@@ -7,6 +7,7 @@ use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\CashDrawer;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -87,7 +88,12 @@ class OrderController extends Controller
         // ดึงข้อมูลคำสั่งซื้อพร้อมรายการสินค้า
         $orders = \App\Models\Order::with('items')->orderBy('created_at', 'desc')->paginate(10); // แสดง 10 รายการต่อหน้า
 
-        return view('admin.saleshistory', compact('orders'));
+        if (Auth::user()->type === 'admin') {
+            return view('admin.saleshistory', compact('orders'));
+        } elseif (Auth::user()->type === 'manager') {
+            return view('manager.saleshistory', compact('orders'));
+        }
+        return view('home');
     }
 
     public function salesDetail($id)
@@ -96,7 +102,12 @@ class OrderController extends Controller
         $order = \App\Models\Order::with('items')->findOrFail($id);
 
         // ส่งตัวแปร $order ไปยัง View
-        return view('admin.salesdetail', compact('order'));
+        if (Auth::user()->type === 'admin') {
+            return view('admin.salesdetail', compact('order'));
+        } elseif (Auth::user()->type === 'manager') {
+            return view('manager.salesdetail', compact('order'));
+        }
+        return view('home');
     }
 
     public function salesDetail2($orderNumber)
@@ -104,7 +115,12 @@ class OrderController extends Controller
         // ค้นหาคำสั่งซื้อด้วย order_number
         $order = Order::with('items')->where('order_number', $orderNumber)->firstOrFail();
 
-        return view('admin.salesdetail', compact('order'));
+        if (Auth::user()->type === 'admin') {
+            return view('admin.salesdetail', compact('order'));
+        } elseif (Auth::user()->type === 'manager') {
+            return view('manager.salesdetail', compact('order'));
+        }
+        return view('home');
     }
 
     public function cancelOrder($id)

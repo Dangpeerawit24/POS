@@ -56,7 +56,7 @@
         <!-- Menu Links -->
         <div class="flex flex-col h-full space-y-6">
             <ul class="flex-1 m-4 p-2 space-y-4">
-                @if ( Auth::user()->type === 'admin' || Auth::user()->type === 'manager' )
+                @if (Auth::user()->type === 'admin')
                     <li class="">
                         <a href="/admin/pos" class="flex items-center gap-2 p-2 rounded hover:bg-sky-800">
                             <img src="{{ asset('img/submenu/ic_menu_store_normal.svg') }}" width="30px" height="30px"
@@ -114,6 +114,64 @@
                             จัดการพนักงาน
                         </a>
                     </li>
+                @elseif (Auth::user()->type === 'manager')
+                    <li class="">
+                        <a href="/manager/pos" class="flex items-center gap-2 p-2 rounded hover:bg-sky-800">
+                            <img src="{{ asset('img/submenu/ic_menu_store_normal.svg') }}" width="30px"
+                                height="30px" alt="">
+                            หน้าขาย
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="/manager/dashboard" class="flex items-center gap-2 p-2 rounded hover:bg-sky-800">
+                            <img src="{{ asset('img/submenu/ic_dashboard_normal.svg') }}" width="30px"
+                                height="30px" alt="">
+                            แดชบอร์ด
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/manager/sales-history" class="flex items-center gap-2 p-2 rounded hover:bg-sky-800">
+                            <img src="{{ asset('img/submenu/ic_menu_receipt_normal.svg') }}" width="30px"
+                                height="30px" alt="">
+                            ประวัติการขาย
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/manager/cashdrawer" class="flex items-center gap-2 p-2 rounded hover:bg-sky-800">
+                            <img src="{{ asset('img/submenu/ic_menu_expense.svg') }}" width="30px" height="30px"
+                                alt="">
+                            จัดการกล่องเงินสด
+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/manager/stock" class="flex items-center gap-2 p-2 rounded hover:bg-sky-800">
+                            <img src="{{ asset('img/submenu/ic_menu_history_normal.svg') }}" width="30px"
+                                height="30px" alt="">
+                            จัดการสต็อกสินค้า
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/manager/products" class="flex items-center gap-2 p-2 rounded hover:bg-sky-800">
+                            <img src="{{ asset('img/submenu/ic_menu_fullstock_v2_normal.svg') }}" width="30px"
+                                height="30px" alt="">
+                            จัดการข้อมูลสินค้า
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/manager/categories" class="flex items-center gap-2 p-2 rounded hover:bg-sky-800">
+                            <img src="{{ asset('img/submenu/ic_wholesale.svg') }}" width="30px" height="30px"
+                                alt="">
+                            จัดการประเภทสินค้า
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/manager/users" class="flex items-center gap-2 p-2 rounded hover:bg-sky-800">
+                            <img src="{{ asset('img/submenu/ic_menu_staff_v2_normal.svg') }}" width="30px"
+                                height="30px" alt="">
+                            จัดการพนักงาน
+                        </a>
+                    </li>
                 @else
                     <li class="">
                         <a href="/home" class="flex items-center gap-2 p-2 rounded hover:bg-sky-800">
@@ -153,7 +211,7 @@
             {{-- <div class="p-4 text-center font-bold text-2xl border-b border-sky-100">
             เมนูจัดการระบบ
         </div> --}}
-            @if ( Auth::user()->type === 'admin' || Auth::user()->type === 'manager' )
+            @if (Auth::user()->type === 'admin')
                 <ul class="flex-1 m-4 p-2 space-y-4">
                     <li class="">
                         <a href="/admin/pos"
@@ -213,6 +271,73 @@
                     </li>
                     <li>
                         <a href="/admin/users"
+                            class="flex items-center gap-2 p-2 rounded {{ $manu == 'พนักงาน' ? ' bg-sky-600 scale-125' : '' }} hover:bg-sky-800 hover:scale-110	">
+                            <img src="{{ asset('img/submenu/ic_menu_staff_v2_normal.svg') }}" width="30px"
+                                height="30px" alt="">
+                            จัดการพนักงาน
+                        </a>
+                    </li>
+                </ul>
+            @elseif (Auth::user()->type === 'manager')
+                <ul class="flex-1 m-4 p-2 space-y-4">
+                    <li class="">
+                        <a href="/manager/pos"
+                            class="flex items-center gap-2 p-2 rounded {{ $manu == 'หน้าขาย' ? ' bg-sky-600 scale-125' : '' }} hover:bg-sky-800 hover:scale-110	">
+                            <img src="{{ asset('img/submenu/ic_menu_store_normal.svg') }}" width="30px"
+                                height="30px" alt="">
+                            หน้าขาย
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="/manager/dashboard"
+                            class="flex items-center gap-2 p-2 rounded {{ $manu == 'แดชบอร์ด' ? ' bg-sky-600 scale-125' : '' }} hover:bg-sky-800 hover:scale-110	">
+                            <img src="{{ asset('img/submenu/ic_dashboard_normal.svg') }}" width="30px"
+                                height="30px" alt="">
+                            แดชบอร์ด
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/manager/sales-history"
+                            class="flex items-center gap-2 p-2 rounded {{ $manu == 'ประวัติการขาย' ? ' bg-sky-600 scale-125' : '' }}  hover:bg-sky-800 hover:scale-110	">
+                            <img src="{{ asset('img/submenu/ic_menu_receipt_normal.svg') }}" width="30px"
+                                height="30px" alt="">
+                            ประวัติการขาย
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/manager/cashdrawer"
+                            class="flex items-center gap-2 p-2 rounded {{ $manu == 'จัดการกล่องเงินสด' ? ' bg-sky-600 scale-125' : '' }}  hover:bg-sky-800 hover:scale-110	">
+                            <img src="{{ asset('img/submenu/ic_menu_expense.svg') }}" width="30px" height="30px"
+                                alt="">
+                            จัดการกล่องเงินสด
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/manager/stock"
+                            class="flex items-center gap-2 p-2 rounded {{ $manu == 'จัดการสต็อกสินค้า' ? ' bg-sky-600 scale-125' : '' }} hover:bg-sky-800 hover:scale-110	">
+                            <img src="{{ asset('img/submenu/ic_menu_history_normal.svg') }}" width="30px"
+                                height="30px" alt="">
+                            จัดการสต็อกสินค้า
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/manager/products"
+                            class="flex items-center gap-2 p-2 rounded {{ $manu == 'จัดการข้อมูลสินค้า' ? ' bg-sky-600 scale-125' : '' }} hover:bg-sky-800 hover:scale-110	">
+                            <img src="{{ asset('img/submenu/ic_menu_fullstock_v2_normal.svg') }}" width="30px"
+                                height="30px" alt="">
+                            จัดการข้อมูลสินค้า
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/manager/categories"
+                            class="flex items-center gap-2 p-2 rounded {{ $manu == 'จัดการประเภทสินค้า' ? ' bg-sky-600 scale-125' : '' }} hover:bg-sky-800 hover:scale-110	">
+                            <img src="{{ asset('img/submenu/ic_wholesale.svg') }}" width="30px" height="30px"
+                                alt="">
+                            จัดการประเภทสินค้า
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/manager/users"
                             class="flex items-center gap-2 p-2 rounded {{ $manu == 'พนักงาน' ? ' bg-sky-600 scale-125' : '' }} hover:bg-sky-800 hover:scale-110	">
                             <img src="{{ asset('img/submenu/ic_menu_staff_v2_normal.svg') }}" width="30px"
                                 height="30px" alt="">

@@ -9,14 +9,14 @@
         <p class="text-lg mb-4">ยอดเงินปัจจุบัน: <span
                 class="font-bold text-green-500">฿{{ number_format($cashDrawer->current_balance, 2) }}</span></p>
 
-        <form action="{{ route('cashdrawer.add') }}" method="POST" class="mb-4">
+        <form action="{{ route('manager.cashdrawer.add') }}" method="POST" class="mb-4">
             @csrf
             <input type="number" name="amount" class="border rounded-lg p-2" placeholder="จำนวนเงิน">
             <input type="text" name="note" class="border rounded-lg p-2" placeholder="หมายเหตุ (ถ้ามี)">
             <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-lg">เพิ่มเงิน</button>
         </form>
 
-        <form action="{{ route('cashdrawer.subtract') }}" method="POST">
+        <form action="{{ route('manager.cashdrawer.subtract') }}" method="POST">
             @csrf
             <input type="number" name="amount" class="border rounded-lg p-2" placeholder="จำนวนเงิน">
             <input type="text" name="note" class="border rounded-lg p-2" placeholder="หมายเหตุ (ถ้ามี)">
@@ -52,10 +52,17 @@
                                         );
                                         $orderNumber = trim($orderNumber);
                                     @endphp
-                                    <a href="{{ route('sales.detail2', ['orderNumber' => $orderNumber]) }}"
-                                        class="text-sky-500 hover:underline">
-                                        {{ $movement->note }}
-                                    </a>
+                                    @if (Auth::user()->type === 'admin')
+                                        <a href="{{ route('sales.detail2', ['orderNumber' => $orderNumber]) }}"
+                                            class="text-sky-500 hover:underline">
+                                            {{ $movement->note }}
+                                        </a>
+                                    @elseif (Auth::user()->type === 'manager')
+                                        <a href="{{ route('manager.sales.detail2', ['orderNumber' => $orderNumber]) }}"
+                                            class="text-sky-500 hover:underline">
+                                            {{ $movement->note }}
+                                        </a>
+                                    @endif
                                 @else
                                     {{ $movement->note }}
                                 @endif

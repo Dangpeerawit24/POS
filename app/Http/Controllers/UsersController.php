@@ -15,7 +15,13 @@ class UsersController extends Controller
         } else {
             $Users = User::where('type', '!=', 1)->get();
         }
-        return view('admin.users', compact('Users'));
+
+        if (Auth::user()->type === 'admin') {
+            return view('admin.users', compact('Users'));
+        } elseif (Auth::user()->type === 'manager') {
+            return view('manager.users', compact('Users'));
+        }
+        return view('home');
     }
 
     public function store(Request $request)
@@ -72,7 +78,7 @@ class UsersController extends Controller
             // คืนค่าการแจ้งเตือนหรือกลับไปยังหน้าก่อนหน้า
             return redirect()->back()->with('success', 'ลบข้อมูล สมาชิก เรียบร้อยแล้ว.');
         } catch (\Exception $e) {
-            return redirect()->route('Users.index')->with('error', 'Failed to delete User.');
+            return redirect()->back()->with('error', 'Failed to delete User.');
         }
     }
 }

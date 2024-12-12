@@ -9,7 +9,7 @@ class PosController extends Controller
 {
     public function index(Request $request)
     {
-        $products = \App\Models\Product::all(); // ดึงรายการสินค้า
+        $products = \App\Models\Product::where('stock_quantity', '>', 0)->get();
 
         if (Auth::user()->type === 'admin') {
             return view('admin.pos', compact('products'));
