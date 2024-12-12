@@ -11,8 +11,8 @@
             <div class="pt-10 grid grid-cols-2 mb-56 lg:mb-48 md:grid-cols-3 xl:grid-cols-4 ">
                 @foreach ($products as $product)
                     <div
-                        class=" bg-sky-100 w-auto md:w-auto h-auto flex items-end  m-1 p-2 rounded-lg shadow-xl border-2 border-blue-300 hover:scale-105 transition-transform duration-500 ease-in-out	">
-                        <a href="#"
+                        class=" bg-sky-100 w-auto md:w-auto h-auto flex items-end  m-1 p-2 rounded-lg shadow-xl border-2 border-blue-300 lg:hover:scale-105 transition-transform duration-500 ease-in-out	">
+                        <a id="pos" href="#"
                             onclick="addToCart({{ $product->id }}, '{{ $product->name }}', {{ $product->price }})">
                             <img src="{{ asset('img/product/' . $product->image) }}" alt="">
                             <h1 class="text-lg font-bold mt-2 line-clamp-2">{{ $product->name }}</h1>
@@ -435,8 +435,6 @@
 
         // เพิ่มสินค้าในตะกร้า
         function addToCart(productId, productName, productPrice) {
-            // แสดง Loader
-            document.getElementById('loader').classList.remove('hidden');
 
             // จำลองการโหลดข้อมูล (หรือใช้ AJAX จริง)
             setTimeout(() => {
@@ -454,8 +452,6 @@
                 // อัปเดตตะกร้า
                 updateCart();
 
-                // ซ่อน Loader หลังเพิ่มสินค้าเสร็จ
-                document.getElementById('loader').classList.add('hidden');
             }, 0); // จำลองการโหลด 500ms
         }
 

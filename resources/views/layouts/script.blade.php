@@ -19,9 +19,13 @@
     });
 </script>
 <script>
+    const manu = '{{ $manu }}'; // ส่งค่าจาก PHP มายัง JavaScript
+
     document.querySelectorAll('a').forEach(function(link) {
         link.addEventListener('click', function() {
+            if (link.id !== 'pos') {
             document.getElementById('loader').classList.remove('hidden');
+        }
         });
     });
 
