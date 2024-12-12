@@ -26,10 +26,6 @@ class HomeController extends Controller
     {
         return view('home');
     } 
-    public function staffHome(): View
-    {
-        return view('home');
-    }
   
     /**
      * Show the application dashboard.
