@@ -23,7 +23,7 @@ class DashboardController extends Controller
             ->sum('total_amount');
 
         // สินค้าที่ใกล้หมดสต็อก
-        $lowStockProducts = Product::where('stock_quantity', '<', 10)->get();
+        $lowStockProducts = Product::whereColumn('stock_quantity', '<', 'restock_level')->get();
 
         // การอัปเดตสต็อกล่าสุด
         $recentStockMovements = StockMovement::with('user', 'product')->latest()->take(5)->get();
