@@ -52,7 +52,7 @@
         <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl overflow-hidden">
             <!-- Modal Header -->
             <div class="px-6 py-4 bg-blue-500 text-white flex justify-between items-center">
-                <h2 class="text-xl font-semibold">เพิ่มสินค้า</h2>
+                <h2 class="text-xl font-semibold">เพิ่มพนักงาน</h2>
                 <button id="closeModal" class="text-white hover:text-gray-300 text-2xl">
                     &times;
                 </button>
@@ -65,19 +65,19 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700 mb-1">ชื่อ-สกุล</label>
-                            <input type="text" name="name" id="name" value="{{ old('name') }}"
+                            <input type="text" name="name" id="name" value=""
                                 class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring focus:ring-blue-200"
                                 placeholder="กรอก ชื่อ-สกุล" required>
                         </div>
                         <div>
                             <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                            <input type="email" name="email" id="email" value="{{ old('email') }}"
+                            <input type="email" name="email" id="email" value=""
                                 class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring focus:ring-blue-200"
                                 placeholder="กรอก Email" required>
                         </div>
                         <div>
                             <label for="password" class="block text-sm font-medium text-gray-700 mb-1">รหัสผ่าน</label>
-                            <input type="password" name="password" id="password" value="{{ old('password') }}"
+                            <input type="password" name="password" id="password" value=""
                                 class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring focus:ring-blue-200"
                                 placeholder="กรอก รหัสผ่าน" required>
                         </div>
