@@ -7,7 +7,7 @@
 @section('content')
     <div class="container mx-auto px-4 py-6">
         <h1 class="text-2xl font-bold mb-6">ประวัติการขาย</h1>
-        <div class=" overflow-y-auto">
+        <div class=" h-4/6 overflow-y-auto">
             <table class="table-auto w-full border-collapse border border-gray-200 bg-white shadow-md">
                 <thead class="bg-gray-100">
                     <tr>
