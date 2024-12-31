@@ -86,7 +86,7 @@ class OrderController extends Controller
     public function salesHistory()
     {
         // ดึงข้อมูลคำสั่งซื้อพร้อมรายการสินค้า
-        $orders = \App\Models\Order::with('items')->orderBy('created_at', 'desc')->paginate(10); // แสดง 10 รายการต่อหน้า
+        $orders = \App\Models\Order::with('items')->orderBy('created_at', 'desc')->paginate(20);
 
         if (Auth::user()->type === 'admin') {
             return view('admin.saleshistory', compact('orders'));
