@@ -44,4 +44,23 @@ class DashboardController extends Controller
         // ส่งข้อมูลไปยัง View
         return view('admin.dashboard', compact('totalSales', 'totalOrders', 'salesToday', 'lowStockProducts', 'recentStockMovements', 'soldProducts'));
     }
+
+    public function filterSales(Request $request)
+    {
+        $dateFilter = $request->query('date', 'today'); // ค่าเริ่มต้นคือ 'today'
+
+        $query = DB::table('order_items')
+            ->join('products', 'order_items.product_id', '=', 'products.id')
+            ->select('products.name', DB::raw('SUM(order_items.quantity) as total_quantity'))
+            ->groupBy('products.name')
+            ->orderByDesc('total_quantity');
+
+        if ($dateFilter === 'today') {
+            $query->whereDate('order_items.created_at', now()->format('Y-m-d'));
+        }
+
+        $salesData = $query->get();
+
+        return response()->json($salesData);
+    }
 }

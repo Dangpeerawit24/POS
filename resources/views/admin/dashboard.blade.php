@@ -93,26 +93,57 @@
         </div>
         <div class="mt-6">
             <h2 class="text-xl font-bold mb-4">ยอดขายสินค้ารวม</h2>
-            <div class="overflow-x-auto">
-                <table class="table-auto w-full border-collapse border border-gray-200 bg-white shadow-md">
-                    <thead class="bg-gray-100">
-                        <tr>
-                            <th class="border text-nowrap border-gray-300 px-4 py-2 text-left">ชื่อสินค้า</th>
-                            <th class="border text-nowrap border-gray-300 px-4 py-2 text-right">จำนวนที่ขาย</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($soldProducts as $product)
-                            <tr>
-                                <td class="border text-nowrap border-gray-300 px-4 py-2">{{ $product->name }}</td>
-                                <td class="border text-nowrap border-gray-300 px-4 py-2 text-right">
-                                    {{ $product->total_quantity }} ชิ้น
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+            <div class="mb-2">
+                <label for="filterDate" class="block text-sm font-medium text-gray-700">เลือกช่วงเวลา:</label>
+                <select id="filterDate" class="w-full px-4 py-2 border rounded-lg" onchange="filterSales()">
+                    <option value="today" selected>วันนี้</option>
+                    <option value="all">ทั้งหมด</option>
+                </select>
+            </div>
+            <div id="salesResult">
+                <!-- แสดงผลยอดขายที่นี่ -->
             </div>
         </div>
     </div>
+
+    <script>
+        window.onload = function() {
+            filterSales();
+        };
+
+
+        function filterSales() {
+            const filterDate = document.getElementById("filterDate").value;
+
+            fetch(`/sales/filter?date=${filterDate}`, {
+                    method: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const salesResult = document.getElementById("salesResult");
+                    salesResult.innerHTML = `
+                <table class="table-auto w-full border-collapse border border-gray-200 bg-white shadow-md">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="border px-4 py-2">ชื่อสินค้า</th>
+                            <th class="border px-4 py-2">จำนวนที่ขาย</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${data.map(item => `
+                                <tr>
+                                    <td class="border px-4 py-2">${item.name}</td>
+                                    <td class="border px-4 py-2">${item.total_quantity}</td>
+                                </tr>
+                            `).join('')}
+                    </tbody>
+                </table>
+            `;
+                })
+                .catch(error => console.error("Error fetching sales data:", error));
+        }
+    </script>
 @endsection
