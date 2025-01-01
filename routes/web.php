@@ -112,3 +112,4 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
 All API Routes List
 --------------------------------------------*/
 Route::post('/api/orders', [OrderController::class, 'store']);
+Route::get('/sales/filter', [DashboardController::class, 'filterSales']);
