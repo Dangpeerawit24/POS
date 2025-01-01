@@ -713,6 +713,7 @@
                             closePaymentModal();
                             cart = {};
                             updateCart();
+                            location.reload();
                         });
                     } else {
                         const error = await response.json();

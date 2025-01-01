@@ -92,25 +92,21 @@
             </div>
         </div>
         <div class="mt-6">
-            <h2 class="text-xl font-bold mb-4">บิลที่ถูกยกเลิก</h2>
+            <h2 class="text-xl font-bold mb-4">ยอดขายสินค้ารวม</h2>
             <div class="overflow-x-auto">
                 <table class="table-auto w-full border-collapse border border-gray-200 bg-white shadow-md">
                     <thead class="bg-gray-100">
                         <tr>
-                            <th class="border text-nowrap border-gray-300 px-4 py-2 text-left">เลขที่คำสั่งซื้อ</th>
-                            <th class="border text-nowrap border-gray-300 px-4 py-2 text-left">ยอดรวม</th>
-                            <th class="border text-nowrap border-gray-300 px-4 py-2 text-left">สถานะ</th>
+                            <th class="border text-nowrap border-gray-300 px-4 py-2 text-left">ชื่อสินค้า</th>
+                            <th class="border text-nowrap border-gray-300 px-4 py-2 text-right">จำนวนที่ขาย</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($cancelledOrders as $order)
+                        @foreach ($soldProducts as $product)
                             <tr>
-                                <td class="border text-nowrap border-gray-300 px-4 py-2">{{ $order->order_number }}</td>
-                                <td class="border text-nowrap border-gray-300 px-4 py-2">
-                                    ฿{{ number_format($order->total_amount, 2) }}</td>
-                                <td class="border text-nowrap border-gray-300 px-4 py-2">
-                                    <span class="text-red-500 font-bold">ยกเลิกแล้ว</span>
-                                    <small class="text-gray-500">โดย {{ $order->cancelledBy->name ?? 'ไม่ทราบ' }}</small>
+                                <td class="border text-nowrap border-gray-300 px-4 py-2">{{ $product->name }}</td>
+                                <td class="border text-nowrap border-gray-300 px-4 py-2 text-right">
+                                    {{ $product->total_quantity }} ชิ้น
                                 </td>
                             </tr>
                         @endforeach
@@ -119,5 +115,4 @@
             </div>
         </div>
     </div>
-    
-    @endsection
+@endsection
