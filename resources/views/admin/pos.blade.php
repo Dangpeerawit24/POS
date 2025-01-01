@@ -532,7 +532,7 @@
             // อัปเดตยอดรวม
             totalAmount.textContent = `${total.toFixed(2)} ฿`;
             qrTotal.textContent = `${total.toFixed(2)} ฿`;
-            qrImage.src = `https://promptpay.io/0993000067720/${total}`;
+            qrImage.src = `{{ asset('img/QR Kbank.png')}}`;
             totalAmount2.textContent = `${total.toFixed(2)} ฿`;
             totalAmountSmall.textContent = `${total.toFixed(2)} ฿`;
             totalItems.textContent = `${itemsCount} รายการ`;
