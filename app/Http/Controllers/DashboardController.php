@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\StockMovement;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -28,10 +29,17 @@ class DashboardController extends Controller
         // การอัปเดตสต็อกล่าสุด
         $recentStockMovements = StockMovement::with('user', 'product')->latest()->take(5)->get();
 
+        $soldProducts = DB::table('order_items')
+            ->join('products', 'order_items.product_id', '=', 'products.id')
+            ->select('products.name', DB::raw('SUM(order_items.quantity) as total_quantity'))
+            ->groupBy('products.name')
+            ->orderByDesc('total_quantity')
+            ->get();
+
         // คำสั่งซื้อที่ถูกยกเลิก
-        $cancelledOrders = Order::where('status', 'cancelled')->orderBy('created_at', 'desc')->get();
+        // $cancelledOrders = Order::where('status', 'cancelled')->orderBy('created_at', 'desc')->get();
 
         // ส่งข้อมูลไปยัง View
-        return view('admin.dashboard', compact('totalSales', 'totalOrders', 'salesToday', 'lowStockProducts', 'recentStockMovements', 'cancelledOrders'));
+        return view('admin.dashboard', compact('totalSales', 'totalOrders', 'salesToday', 'lowStockProducts', 'recentStockMovements', 'soldProducts'));
     }
 }
