@@ -532,7 +532,7 @@
             // อัปเดตยอดรวม
             totalAmount.textContent = `${total.toFixed(2)} ฿`;
             qrTotal.textContent = `${total.toFixed(2)} ฿`;
-            qrImage.src = `{{ asset('img/QR Kbank.png')}}`;
+            qrImage.src = `{{ asset('img/QR Kbank.png') }}`;
             totalAmount2.textContent = `${total.toFixed(2)} ฿`;
             totalAmountSmall.textContent = `${total.toFixed(2)} ฿`;
             totalItems.textContent = `${itemsCount} รายการ`;
@@ -630,6 +630,15 @@
                     return;
                 }
 
+                Swal.fire({
+                    title: "กำลังประมวลผล",
+                    text: "กรุณารอสักครู่...",
+                    icon: "info",
+                    allowOutsideClick: false, // ป้องกันการคลิกด้านนอก
+                    allowEscapeKey: false, // ป้องกันการกด Esc
+                    showConfirmButton: false // ไม่แสดงปุ่มใดๆ
+                });
+                
                 const paymentData = {
                     payment_method: 'cash',
                     total_amount: totalAmount,
@@ -687,6 +696,15 @@
                     });
                     return;
                 }
+
+                Swal.fire({
+                    title: "กำลังประมวลผล",
+                    text: "กรุณารอสักครู่...",
+                    icon: "info",
+                    allowOutsideClick: false, // ป้องกันการคลิกด้านนอก
+                    allowEscapeKey: false, // ป้องกันการกด Esc
+                    showConfirmButton: false // ไม่แสดงปุ่มใดๆ
+                });
 
                 const formData = new FormData();
                 formData.append('payment_method', 'qr');

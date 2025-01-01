@@ -532,7 +532,7 @@
             // อัปเดตยอดรวม
             totalAmount.textContent = `${total.toFixed(2)} ฿`;
             qrTotal.textContent = `${total.toFixed(2)} ฿`;
-            qrImage.src = `https://promptpay.io/0993000067720/${total}`;
+            qrImage.src = `{{ asset('img/QR Kbank.png') }}`;
             totalAmount2.textContent = `${total.toFixed(2)} ฿`;
             totalAmountSmall.textContent = `${total.toFixed(2)} ฿`;
             totalItems.textContent = `${itemsCount} รายการ`;
@@ -630,6 +630,15 @@
                     return;
                 }
 
+                Swal.fire({
+                    title: "กำลังประมวลผล",
+                    text: "กรุณารอสักครู่...",
+                    icon: "info",
+                    allowOutsideClick: false, // ป้องกันการคลิกด้านนอก
+                    allowEscapeKey: false, // ป้องกันการกด Esc
+                    showConfirmButton: false // ไม่แสดงปุ่มใดๆ
+                });
+                
                 const paymentData = {
                     payment_method: 'cash',
                     total_amount: totalAmount,
@@ -688,6 +697,15 @@
                     return;
                 }
 
+                Swal.fire({
+                    title: "กำลังประมวลผล",
+                    text: "กรุณารอสักครู่...",
+                    icon: "info",
+                    allowOutsideClick: false, // ป้องกันการคลิกด้านนอก
+                    allowEscapeKey: false, // ป้องกันการกด Esc
+                    showConfirmButton: false // ไม่แสดงปุ่มใดๆ
+                });
+
                 const formData = new FormData();
                 formData.append('payment_method', 'qr');
                 formData.append('total_amount', totalAmount);
@@ -713,6 +731,7 @@
                             closePaymentModal();
                             cart = {};
                             updateCart();
+                            location.reload();
                         });
                     } else {
                         const error = await response.json();
