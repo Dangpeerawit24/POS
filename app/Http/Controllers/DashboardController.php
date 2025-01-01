@@ -31,6 +31,8 @@ class DashboardController extends Controller
 
         $soldProducts = DB::table('order_items')
             ->join('products', 'order_items.product_id', '=', 'products.id')
+            ->join('orders', 'order_items.order_id', '=', 'orders.id') // เข้าร่วมกับ orders
+            ->where('orders.status', '!=', 'cancelled') // กรองบิลที่ไม่ถูกยกเลิก
             ->select('products.name', DB::raw('SUM(order_items.quantity) as total_quantity'))
             ->groupBy('products.name')
             ->orderByDesc('total_quantity')
